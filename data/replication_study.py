@@ -13,3 +13,4 @@ class ReplicationStudy:
     original_reference: Optional[str] = None
     replication_title: Optional[str] = None
     original_title: Optional[str] = None
+    abstract: Optional[str] = None

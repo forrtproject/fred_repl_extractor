@@ -24,6 +24,7 @@ def extract_replication_study(replication_doi: str) -> ReplicationStudy:
     # Build replication reference
     replication_reference = build_reference_string(message)
     replication_title = message.get('title', [''])[0] if message.get('title') else None
+    abstract = message.get('abstract') if message.get('abstract') else None
     
     # Look through references to find the original study
     references = message.get('reference', [])
@@ -51,13 +52,14 @@ def extract_replication_study(replication_doi: str) -> ReplicationStudy:
         original_doi=original_doi,
         original_reference=original_reference,
         replication_title=replication_title,
-        original_title=original_title
+        original_title=original_title,
+        abstract=abstract
     )
 
 
 
 if __name__ == "__main__":
-    replication_doi = "10.1007/s40732-024-00601-4"
+    replication_doi = "10.1177/19485506211056761"
     
     print("Fetching replication study information...\n")
     study = extract_replication_study(replication_doi)
@@ -69,6 +71,7 @@ if __name__ == "__main__":
         print(f"Reference_r: {study.replication_reference}\n")
         print(f"DOI_o: {study.original_doi}")
         print(f"Title_o: {study.original_title}")
-        print(f"Reference_o: {study.original_reference}")
+        print(f"Reference_o: {study.original_reference}\n")
+        print(f"Abstract: {study.abstract}")
     else:
         print("Failed to extract replication study information")
