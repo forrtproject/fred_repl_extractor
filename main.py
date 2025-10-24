@@ -1,3 +1,4 @@
+from extractor import classify_replication
 from utils import build_reference_string, fetch_doi_metadata
 from data.replication_study import ReplicationStudy
 
@@ -57,9 +58,8 @@ def extract_replication_study(replication_doi: str) -> ReplicationStudy:
     )
 
 
-
 if __name__ == "__main__":
-    replication_doi = "10.1177/19485506211056761"
+    replication_doi = "10.1371/journal.pone.0313619"
     
     print("Fetching replication study information...\n")
     study = extract_replication_study(replication_doi)
@@ -72,6 +72,12 @@ if __name__ == "__main__":
         print(f"DOI_o: {study.original_doi}")
         print(f"Title_o: {study.original_title}")
         print(f"Reference_o: {study.original_reference}\n")
-        print(f"Abstract: {study.abstract}")
+        print(f"Abstract: {study.abstract}\n")
     else:
         print("Failed to extract replication study information")
+
+    result = classify_replication(study.abstract, study.original_title)
+    if result:
+         print(f"Confidence: {result.confidence}\n")
+         print(f"Outcome: {result.outcome}\n")
+         print(f"Proof: {result.proof}\n")
