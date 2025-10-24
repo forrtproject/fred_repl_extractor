@@ -59,7 +59,7 @@ def extract_replication_study(replication_doi: str) -> ReplicationStudy:
 
 
 if __name__ == "__main__":
-    replication_doi = "10.1371/journal.pone.0313619"
+    replication_doi = "10.1177/0956797617734315"
     
     print("Fetching replication study information...\n")
     study = extract_replication_study(replication_doi)
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     result = classify_replication(study.abstract)
     if result:
          print(f"Confidence: {result.confidence}\n")
-         print(f"Outcome: {result.outcome}\n")
+         print(f"Outcome: {result.outcome.value}\n")
          print(f"Proof: {result.proof}\n")
          similarity = fuzz.token_set_ratio(result.proof, study.abstract)
          print(f"Similarity: {similarity}%")
