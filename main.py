@@ -1,7 +1,7 @@
 from extractor import classify_replication
 from utils import build_reference_string, fetch_doi_metadata
 from data.replication_study import ReplicationStudy
-
+from fuzzywuzzy import fuzz
 
 
 def extract_replication_study(replication_doi: str) -> ReplicationStudy:
@@ -76,8 +76,10 @@ if __name__ == "__main__":
     else:
         print("Failed to extract replication study information")
 
-    result = classify_replication(study.abstract, study.original_title)
+    result = classify_replication(study.abstract)
     if result:
          print(f"Confidence: {result.confidence}\n")
          print(f"Outcome: {result.outcome}\n")
          print(f"Proof: {result.proof}\n")
+         similarity = fuzz.token_set_ratio(result.proof, study.abstract)
+         print(f"Similarity: {similarity}%")

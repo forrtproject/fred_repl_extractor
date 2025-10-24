@@ -22,8 +22,7 @@ class ReplicationClassification(BaseModel):
 load_dotenv()
 
 def classify_replication(
-    replication_abstract: str,
-    original_study_title: str
+    replication_abstract: str
 ) -> ReplicationClassification:
     """
     Uses Google Gemini to classify if a replication was successful, failed, or mixed.
